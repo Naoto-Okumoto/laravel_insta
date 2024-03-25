@@ -92,4 +92,21 @@ class HomeController extends Controller
                 ->with('users', $users)
                 ->with('search', $request->search);
     }
+
+    public function showAllSuggestedUsers()
+    {
+        // まずは、自分（Auth User）を除く、全ユーザーを取得する。
+        $all_users = $this->user->all()->except(Auth::user()->id);
+        $all_suggested_users = []; //初期化により、nullを防ぐ。
+
+        foreach($all_users as $user) {
+            // そのユーザーがフォローされてなければ、$all_suggested_usersに入れていく。
+            if(!$user->isFollowed()) {
+                $all_suggested_users[] = $user;
+            }
+        }
+
+        return view('users.suggested-users')
+                ->with('all_suggested_users', $all_suggested_users);
+    }
 }

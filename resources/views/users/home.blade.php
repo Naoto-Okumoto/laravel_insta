@@ -54,7 +54,7 @@
                     <p class="fw-bold text-secondary">Suggestions For You</p>
                 </div>
                 <div class="col text-end">
-                    <a href="#" class="fw-bold text-dark text-decoration-none">See All</a>
+                    <a href="{{ route('suggested_users') }}" class="fw-bold text-dark text-decoration-none">See All</a>
                 </div>
             </div>
 

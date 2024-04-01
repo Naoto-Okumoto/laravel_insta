@@ -66,7 +66,7 @@ class HomeController extends Controller
     private function getSuggestedUsers()
     {
         // まずは、自分（Auth User）を除く、全ユーザーを取得する。
-        $all_users = $this->user->all()->except(Auth::user()->id);
+        $all_users = $this->user->where('role_id', User::USER_ROLE_ID)->get()->except(Auth::user()->id);
         $suggested_users = []; //初期化により、nullを防ぐ。
 
         foreach($all_users as $user) {
@@ -96,7 +96,8 @@ class HomeController extends Controller
     public function showAllSuggestedUsers()
     {
         // まずは、自分（Auth User）を除く、全ユーザーを取得する。
-        $all_users = $this->user->all()->except(Auth::user()->id);
+        // アドミン（role_id == 1）は取得しない。
+        $all_users = $this->user->where('role_id', User::USER_ROLE_ID)->get()->except(Auth::user()->id);
         $all_suggested_users = []; //初期化により、nullを防ぐ。
 
         foreach($all_users as $user) {

@@ -86,7 +86,7 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        $users = $this->user->where('name', 'like', '%'.$request->search.'%')->get();
+        $users = $this->user->where('role_id', User::USER_ROLE_ID)->where('name', 'like', '%'.$request->search.'%')->get();
 
         return view('users.search')
                 ->with('users', $users)
